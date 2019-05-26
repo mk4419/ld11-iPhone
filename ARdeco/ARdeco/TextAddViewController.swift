@@ -1,11 +1,3 @@
-//
-//  TextAddViewController.swift
-//  ARdeco
-//
-//  Created by 森大樹 on 2019/04/28.
-//  Copyright © 2019 DaikiMori. All rights reserved.
-//
-
 import UIKit
 
 class TextAddViewController: UIViewController, UITextFieldDelegate {
@@ -14,7 +6,11 @@ class TextAddViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet var textField: UITextField!
     
     var decoText: [String] = []
-    var checknum: Int = 0
+    //var labelCheckNum: Int = 0
+    
+    var labelposiXArray: [Float] = []
+    
+    var labelposiYArray: [Float] = []
     
     let saveData = UserDefaults.standard
     
@@ -23,9 +19,16 @@ class TextAddViewController: UIViewController, UITextFieldDelegate {
         if saveData.array(forKey: "decoText") != nil {
             decoText = saveData.object(forKey: "decoText") as! [String]
         }
-        if saveData.object(forKey: "checknum") != nil {
-            checknum = saveData.integer(forKey: "checknum")
+//        if saveData.object(forKey: "labelChekNum") != nil {
+//            labelCheckNum = saveData.integer(forKey: "labelCheckNum")
+//        }
+        if saveData.object(forKey: "labelposiXArray") != nil {
+            labelposiXArray = saveData.object(forKey: "labelposiXArray") as! [Float]
         }
+        if saveData.object(forKey: "labelposiYArray") != nil {
+            labelposiYArray = saveData.object(forKey: "labelposiYArray") as! [Float]
+        }
+        
         textView.text = ""
         textField.delegate = self
     }
@@ -49,14 +52,18 @@ class TextAddViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func done() {
-        checknum = checknum + 1
+        labelposiXArray.append(Float(view.center.x))
+        labelposiYArray.append(Float(view.center.y + 100))
+        //labelCheckNum = labelCheckNum + 1
         //textView.text = "Test"
         decoText.append(textField.text!)
-        saveData.set(checknum, forKey: "checknum")
+        //saveData.set(labelCheckNum, forKey: "labelCheckNum")
         saveData.set(decoText, forKey: "decoText")
-        for i in 0 ..< checknum {
+        saveData.set(labelposiXArray, forKey: "labelposiXArray")
+        saveData.set(labelposiYArray, forKey: "labelposiYArray")
+        for i in 0 ..< decoText.count {
            print(decoText[i])
-            print(checknum)
+            print(decoText.count)
         }
         print("donebt")
         self.performSegue(withIdentifier: "done", sender: nil)

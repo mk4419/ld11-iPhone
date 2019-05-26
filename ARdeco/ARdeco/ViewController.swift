@@ -1,14 +1,8 @@
-//
-//  ViewController.swift
-//  ARdeco
-//
-//  Created by 森大樹 on 2019/04/24.
-//  Copyright © 2019 DaikiMori. All rights reserved.
-//
-
 import UIKit
 
 class ViewController: UIViewController {
+    
+    var saveData = UserDefaults.standard
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -16,8 +10,18 @@ class ViewController: UIViewController {
     }
     
     @IBAction func camera() {
-        UserDefaults.standard.removeObject(forKey: "checknum")
-        UserDefaults.standard.removeObject(forKey: "decoText")
+        saveData.removeObject(forKey: "decoText")
+        saveData.removeObject(forKey: "labelCheckNum")
+        saveData.removeObject(forKey: "labelArray")
+        saveData.removeObject(forKey: "labelposiXArray")
+        saveData.removeObject(forKey: "labelposiYArray")
+        
+        saveData.removeObject(forKey: "photoCheckNum")
+        saveData.removeObject(forKey: "photoImageArray")
+        saveData.removeObject(forKey: "photoposiXArray")
+        saveData.removeObject(forKey: "photoposiYArray")
+        
+        saveData.removeObject(forKey: "saveArray")
         print("camerabt")
         self.performSegue(withIdentifier: "camera", sender: nil)
     }
